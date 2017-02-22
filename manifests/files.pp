@@ -76,7 +76,6 @@ class postfix::files {
     group   => 'root',
     mode    => '0644',
     owner   => 'root',
-    replace => false,
     seltype => $postfix::params::seltype,
     source  => $maincf_source,
   }
