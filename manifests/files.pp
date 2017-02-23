@@ -76,9 +76,20 @@ class postfix::files {
     group   => 'root',
     mode    => '0644',
     owner   => 'root',
-    seltype => $postfix::params::seltype,
-    source  => $maincf_source,
+    seltype => $postfix::params::seltype
   }
+
+  concat { '/etc/postfix/main.cf':
+    ensure => present,
+    ensure_newline => true
+  }
+
+  concat::fragment{ 'main.cf_main':
+    target => '/etc/postfix/main.cf',
+    source => $maincf_source,
+    order => '01'
+  }
+
 
   ::postfix::config {
     'alias_maps':       value => $alias_maps;
